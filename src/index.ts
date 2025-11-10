@@ -233,7 +233,7 @@ app.post("/users", async (c) => {
       return c.json(
         {
           error: "Validation failed",
-          details: validation.error.errors.map((err) => ({
+          details: validation.error.issues.map((err) => ({
             field: err.path.join("."),
             message: err.message,
           })),
@@ -327,7 +327,7 @@ app.put("/users/:id", async (c) => {
       return c.json(
         {
           error: "Validation failed",
-          details: validation.error.errors.map((err) => ({
+          details: (validation.error as z.ZodError).issues.map((err) => ({
             field: err.path.join("."),
             message: err.message,
           })),
